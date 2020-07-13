@@ -1,0 +1,25 @@
+<div>
+    <mat-toolbar color="primary" class="mat-elevation-z4">
+        <button mat-button routerLink="/user">
+            <mat-icon>collections</mat-icon> Online Gallery
+        </button>
+        <form *ngIf=authService.isLoggedIn() (submit)="goToResults()">
+            <mat-form-field [floatLabel]="'never'">
+                <input [(ngModel)]="query" name="search" type="search" matInput placeholder="Search">
+            </mat-form-field>
+        </form>
+        <span class="fill-space"></span>
+        <div *ngIf=authService.isLoggedIn()>
+            <button mat-raised-button color="accent" (click)="launchDialog()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button mat-button routerLink="/settings">Settings</button>
+            <button mat-button *ngIf=authService.isAdmin() routerLink="/admin">AdminPanel</button>
+            <button mat-button color="warn" (click)="logout()">Logout</button>
+        </div>
+        <div *ngIf=!authService.isLoggedIn()>
+            <button mat-button routerLink="/login">Login</button>
+            <button mat-button routerLink="/register">Registration</button>
+        </div>
+    </mat-toolbar>
+</div>

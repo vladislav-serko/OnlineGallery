@@ -1,0 +1,19 @@
+.main-div{
+    width: 40%;
+    min-height: 90%;
+    margin-inline: auto;
+    padding: 15px;
+}
+
+.main-div mat-card{
+    margin-bottom: 12px;
+}
+
+.form mat-form-field{
+    width: calc(90% - 12px);
+    margin-right: 12px;
+}
+
+.form button{
+    width: 10%;
+}

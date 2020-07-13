@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Add image</h1>
+<mat-dialog-content>
+    <form fxLayout="column" [formGroup]="addImageForm" (ngSubmit)="addImage()" class="form">
+        <mat-form-field>
+            <input matInput placeholder="Short Description" formControlName="shortDescription">
+            <mat-error *ngIf="addImageForm.get('shortDescription').hasError('maxlength')">
+                Max length is {{addImageForm.get('shortDescription')?.getError('maxlength').requiredLength}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput placeholder="Description" formControlName="description"></textarea>
+            <mat-error *ngIf="addImageForm.get('description').hasError('maxlength')">
+                Max length is {{addImageForm.get('description')?.getError('maxlength').requiredLength}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <ngx-mat-file-input formControlName="file" placeholder="Choose file" valuePlaceholder="No file selected" required>
+            </ngx-mat-file-input>
+            <mat-icon matSuffix>attach_file</mat-icon>
+            <mat-error *ngIf="addImageForm.get('file').hasError('required')">
+                Please select a file
+            </mat-error>
+            <mat-error *ngIf="addImageForm.get('file').hasError('forbiddenExtension') && !addImageForm.get('file').hasError('required')">
+                Extension "{{addImageForm.get('file')?.getError('forbiddenExtension').extension}}" is not supported.
+                Supported extensions: {{extensions}}
+            </mat-error>
+            <mat-error *ngIf="addImageForm.get('file').hasError('maxContentSize') && !addImageForm.get('file').hasError('forbiddenExtension')">
+                The total size must not exceed
+                {{addImageForm.get('file')?.getError('maxContentSize').maxSize | byteFormat}} ({{addImageForm.get('file')?.getError('maxContentSize').actualSize
+                | byteFormat}}).
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" [disabled]="!addImageForm.valid || loading" (click)="addImage()">Add</button>
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <mat-card-actions>

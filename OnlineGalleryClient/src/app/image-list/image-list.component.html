@@ -1,0 +1,14 @@
+<ngx-masonry [options]="{ gutter: 10, horizontalOrder: true}">
+    <ngxMasonryItem class="masonry-item" *ngFor="let image of pagedData.data">
+        <app-card [image] = image [showAdditionalOptions] = showAdditionalOptions 
+        (delete)="onImageDelete($event)" (update)="reload()">
+        </app-card>
+    </ngxMasonryItem>
+</ngx-masonry>
+<mat-paginator
+    [hidePageSize]="true"
+    [length]="pagedData.totalItems"
+    [pageIndex]="pagedData.currentPage-1"
+    [pageSize]="pagedData.itemCount"
+    (page)='pageChanged($event)'>
+</mat-paginator>

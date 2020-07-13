@@ -1,0 +1,7 @@
+<app-image-list 
+*ngIf="pagedData" 
+[pagedData]="pagedData" 
+[showAdditionalOptions]="showAddtionalOptions"
+(onPageChange)="navigateToPage($event)"
+></app-image-list>
+

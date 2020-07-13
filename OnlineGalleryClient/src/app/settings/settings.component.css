@@ -1,0 +1,12 @@
+.main-div{
+    width: 20%;
+    min-height: 90%;
+    margin-inline: auto;
+    padding: 15px;
+}
+
+.settings-form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}

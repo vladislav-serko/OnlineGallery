@@ -1,0 +1,15 @@
+<div class="main-div mat-elevation-z2">
+    <mat-card style="margin-bottom: 15px;">
+        <mat-card-title *ngIf="!showError">
+            <p>Search results for "{{query}}"</p>
+        </mat-card-title>
+        <mat-card-title *ngIf="showError">
+            <p>No results found for "{{query}}"</p>
+        </mat-card-title>
+    </mat-card>
+    <app-image-list *ngIf="!showError" 
+    [pagedData]="pagedData" 
+    [showAdditionalOptions]="false"
+    (onPageChange)="navigateToPage($event)"
+    ></app-image-list>
+</div>

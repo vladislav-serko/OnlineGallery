@@ -1,0 +1,16 @@
+<div class="card mat-elevation-z1">
+    <div>
+        <h1 class="name">
+            Username: <a href="user?id={{user.id}}">{{user.userName}}</a>
+        </h1>
+        <p class="name">
+            <span>Firstname: {{user.firstName}} </span>
+            <span>Lastname: {{user.lastName}}</span>
+        </p>
+    </div>
+    <div class="action">
+        <button mat-raised-button color="primary" *ngIf="!isModer" (click)="toModer()">Promote to Moderator</button>
+        <button mat-raised-button color="primary" *ngIf="isModer" (click)="toUser()">Lower to User</button>
+        <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+    </div>
+</div>

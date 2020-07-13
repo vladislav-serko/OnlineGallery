@@ -1,0 +1,41 @@
+<mat-card>
+    <div class="image-container">
+        <a href="user?id={{image.userId}}">
+        <img width="100%" [src]=image.url>
+        </a>
+        <button mat-icon-button class="options mat-elevation-z2" [matMenuTriggerFor]="menu">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+    </div>
+    <mat-card-content>
+        <div>
+            <h2 class="text">{{image.shortDescription}}</h2>
+            <button mat-icon-button [ngClass]="{'mat-warn': image.isLiked, 'mat-basic': !image.isLiked}"
+                (click)="onLike()">
+                <mat-icon>favorite</mat-icon>
+            </button>
+        </div>
+        <p class="text" *ngIf=image.description>{{image.description}}</p>
+        <div class="details">
+            <p class="text">{{image.likeCount}} likes</p>
+            <p class="text">{{image.published | date:'short'}}</p>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+        <a style="text-decoration: none; color: inherit;" [href]="image.urlToFull" target ="_blank">
+            <mat-icon>open_in_new</mat-icon>
+            Open full
+        </a>
+    </button>
+    <button mat-menu-item *ngIf="showAdditionalOptions" (click)="launchUpdateDialog()">
+        <mat-icon>edit</mat-icon>
+        Edit
+    </button>
+    <button mat-menu-item *ngIf="showAdditionalOptions || showDelete" (click)=onDelete()>
+        <mat-icon>delete</mat-icon>
+        Delete
+    </button>
+</mat-menu>

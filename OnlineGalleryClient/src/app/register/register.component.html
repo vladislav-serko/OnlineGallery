@@ -1,0 +1,49 @@
+<div fxLayoutAlign="center center" class="main-div">
+    <mat-card fxFlex="25" class="mat-elevation-z4">
+        <mat-toolbar color="primary" class="title">Registration</mat-toolbar>
+        <form fxLayout="column" class="register-form" [formGroup]="formGroup" (ngSubmit)="register()">
+            <mat-form-field>
+                <input matInput placeholder="UserName" formControlName="username">
+                <mat-error *ngIf="formGroup.get('username').hasError('minlength')">
+                    Username is too short
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('username').hasError('maxlength')">
+                    Username is too long
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('username').hasError('pattern')">
+                    Username contains forbidden characters
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="First Name" formControlName="firstName">
+                <mat-error *ngIf="formGroup.get('firstName').hasError('maxlength')">
+                    Fist name is too long
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Last Name" formControlName="lastName">
+                <mat-error *ngIf="formGroup.get('lastName').hasError('maxlength')">
+                    Last name is too long
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="password-field">
+                <input type="password" matInput placeholder="Password" formControlName="password">
+                <mat-error *ngIf="formGroup.get('password').hasError('pattern')">
+                    Password should have at least: minimum 6 characters, one number
+                    , one upper case, one lower case, one special character
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('password').hasError('maxlength')">
+                    Password is too long
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
+                Submit <mat-icon>done</mat-icon>
+            </button>
+        </form>
+
+    </mat-card>
+</div>

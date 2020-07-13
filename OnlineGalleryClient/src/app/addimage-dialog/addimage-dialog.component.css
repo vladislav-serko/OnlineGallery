@@ -1,0 +1,12 @@
+mat-dialog-content{
+    min-width: 300px;
+    height: auto+10px;
+}
+
+mat-icon{
+    max-width: 100%;
+}
+
+.form{
+    padding-bottom: 4px;
+}

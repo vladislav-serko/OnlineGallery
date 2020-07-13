@@ -1,0 +1,4 @@
+.masonry-item { 
+    width: calc(33.3% - 10px); 
+    margin-bottom: 10px;
+}

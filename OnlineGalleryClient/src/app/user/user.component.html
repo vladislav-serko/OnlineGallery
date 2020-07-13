@@ -1,0 +1,7 @@
+<div class="main-div mat-elevation-z2">
+    <app-user-info [user]= user *ngIf="userFound"></app-user-info>
+    <app-user-gallery *ngIf="userFound" [userId]=userId [page]=page></app-user-gallery>
+    <mat-card *ngIf="!userFound">
+        <h1 style="text-align: center;">User with id '{{userId}}' not found</h1>
+    </mat-card>
+</div>

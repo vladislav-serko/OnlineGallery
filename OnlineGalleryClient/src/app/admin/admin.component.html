@@ -1,0 +1,27 @@
+<div class="main-div mat-elevation-z2">
+    <mat-card>
+        <mat-card-content>
+            <form class="form" (submit)="getUsers()">
+                <mat-form-field>
+                    <input matInput [(ngModel)]="query" name="search" type="search">
+                </mat-form-field>
+                <button mat-raised-button type="submit">
+                    <mat-icon>
+                        search
+                    </mat-icon>
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <div *ngIf="pagedData">
+        <app-admin-usercard *ngFor="let user of pagedData.data" [user]="user" (delete)="onDelete($event)">
+        </app-admin-usercard>
+    <mat-paginator 
+        (page)="navigateToPage($event)" 
+        [hidePageSize]="true"
+        [length]="pagedData.totalItems"
+        [pageIndex]="pagedData.currentPage-1"
+        [pageSize]="pagedData.itemCount">
+    </mat-paginator>
+    </div>
+</div>

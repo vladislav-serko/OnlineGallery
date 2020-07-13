@@ -1,0 +1,15 @@
+.fill-space{
+    flex: 1 1 auto;
+}
+.mat-form-field{
+    font-size: 14px;
+    height: 50px;
+}
+.mat-button{
+    margin-left: 7px;
+    margin-right: 7px;
+}
+.mat-raised-button{
+    margin-left: 7px;
+    margin-right: 7px;
+}
