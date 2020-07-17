@@ -8,10 +8,10 @@ namespace OnlineGallery.BLL.DTOs.ImageTransfer
         [Required] 
         public string UserId { get; set; }
 
-        [MaxLength()]
+        [MaxLength(40)]
         public string Description { get; set; }
 
-        [MaxLength()]
+        [MaxLength(300)]
         public string ShortDescription { get; set; }
 
         [Required] public IFormFile File { get; set; }
