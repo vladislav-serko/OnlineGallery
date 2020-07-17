@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace OnlineGallery.BLL.DTOs.Users
 {
@@ -15,6 +13,5 @@ namespace OnlineGallery.BLL.DTOs.Users
         public string LastName { get; set; }
 
         public IEnumerable<string> Roles { get; set; }
-
     }
 }

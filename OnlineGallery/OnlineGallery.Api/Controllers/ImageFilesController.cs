@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineGallery.BLL.Services.Interfaces;
@@ -26,7 +24,7 @@ namespace OnlineGallery.Api.Controllers
 
             return File(stream, GetContentType(name), name);
         }
-        
+
         [Route("{id}/full", Name = "GetFullImageFile")]
         [HttpGet]
         public async Task<IActionResult> GetFullImage(string id)
@@ -41,6 +39,5 @@ namespace OnlineGallery.Api.Controllers
             var ext = Path.GetExtension(name).Replace(".", "");
             return $"image/{ext}";
         }
-
     }
 }

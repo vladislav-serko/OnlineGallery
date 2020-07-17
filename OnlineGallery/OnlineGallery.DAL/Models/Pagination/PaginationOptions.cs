@@ -5,6 +5,5 @@
         public int Page { get; set; }
 
         public int ItemCount { get; set; }
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using OnlineGallery.BLL.Exceptions;
@@ -47,6 +46,5 @@ namespace OnlineGallery.BLL.Services
 
             return (stream, image.Name);
         }
-
     }
 }

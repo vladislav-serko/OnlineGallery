@@ -12,6 +12,5 @@ namespace OnlineGallery.DAL.Models
         public ICollection<Image> Images { get; set; }
 
         public ICollection<Like> Likes { get; set; }
-
     }
 }

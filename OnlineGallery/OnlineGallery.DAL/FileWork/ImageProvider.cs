@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using ImageMagick;
 using OnlineGallery.DAL.Models;
@@ -37,10 +36,7 @@ namespace OnlineGallery.DAL.FileWork
         {
             var di = new DirectoryInfo(path);
 
-            foreach (var file in di.EnumerateFiles())
-            {
-                file.Delete();
-            }
+            foreach (var file in di.EnumerateFiles()) file.Delete();
 
             di.Delete();
         }

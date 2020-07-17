@@ -27,13 +27,13 @@ namespace OnlineGallery.DAL.Models.Pagination
             var count = queryable.Count();
             TotalItems = count;
 
-            PageCount = (int)Math.Ceiling((double)count / ItemCount);
+            PageCount = (int) Math.Ceiling((double) count / ItemCount);
 
-             if (options.Page < 1 || PageCount == 0)
+            if (options.Page < 1 || PageCount == 0)
                 CurrentPage = 1;
-             else if (options.Page > PageCount)
+            else if (options.Page > PageCount)
                 CurrentPage = PageCount;
-             else
+            else
                 CurrentPage = options.Page;
 
             Data = await queryable

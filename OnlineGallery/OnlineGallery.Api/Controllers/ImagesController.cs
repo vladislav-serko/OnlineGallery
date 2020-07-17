@@ -47,7 +47,7 @@ namespace OnlineGallery.Api.Controllers
         public async Task<IActionResult> GetImages([Required] string userId, [Required] int page,
             [Required] int itemCount)
         {
-            var request = new PaginationRequest{ItemCount = itemCount, Page = page};
+            var request = new PaginationRequest {ItemCount = itemCount, Page = page};
             var images = await _imageService.GetImages(userId, request);
 
             foreach (var image in images.Data) await AddInformationToImage(image);
@@ -59,7 +59,7 @@ namespace OnlineGallery.Api.Controllers
         public async Task<IActionResult> SearchImages([Required] string query, [Required] int page,
             [Required] int itemCount)
         {
-            var request = new PaginationRequest{ItemCount = itemCount, Page = page};
+            var request = new PaginationRequest {ItemCount = itemCount, Page = page};
             var images = await _imageService.SearchImages(query, request);
 
             foreach (var image in images.Data) await AddInformationToImage(image);
@@ -75,7 +75,7 @@ namespace OnlineGallery.Api.Controllers
             await _imageService.Update(request);
             return NoContent();
         }
-            
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteImage(string id)
         {
@@ -85,7 +85,7 @@ namespace OnlineGallery.Api.Controllers
         }
 
         [HttpPost("like")]
-        public async Task<IActionResult> LikeImage([FromForm]string id)
+        public async Task<IActionResult> LikeImage([FromForm] string id)
         {
             var userId = this.GetUserId();
             await _likesService.AddLike(id, userId);
@@ -93,7 +93,7 @@ namespace OnlineGallery.Api.Controllers
         }
 
         [HttpPost("unlike")]
-        public async Task<IActionResult> UnlikeImage([FromForm]string id)
+        public async Task<IActionResult> UnlikeImage([FromForm] string id)
         {
             var userId = this.GetUserId();
             await _likesService.RemoveLike(id, userId);
@@ -106,6 +106,5 @@ namespace OnlineGallery.Api.Controllers
             image.UrlToFull = Url.Link("GetFullImageFile", new {image.Id});
             image.IsLiked = await _likesService.LikeExist(image.Id, this.GetUserId());
         }
-
     }
 }

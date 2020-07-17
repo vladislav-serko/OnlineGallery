@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoMapper;
-using OnlineGallery.BLL.DTOs;
 using OnlineGallery.BLL.Services.Interfaces;
 using OnlineGallery.DAL.Models;
 using OnlineGallery.DAL.UnitOfWork;

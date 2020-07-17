@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace OnlineGallery.BLL.DTOs.Users.Authentication
+﻿namespace OnlineGallery.BLL.DTOs.Users.Authentication
 {
     public class AuthenticationResponse
     {

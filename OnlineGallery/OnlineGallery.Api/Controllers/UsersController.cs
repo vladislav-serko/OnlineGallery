@@ -20,7 +20,7 @@ namespace OnlineGallery.Api.Controllers
         {
             _usersService = usersService;
         }
-        
+
         [Route("{id}", Name = "GetUser")]
         [HttpGet]
         public async Task<IActionResult> GetUser(string id)
@@ -53,7 +53,7 @@ namespace OnlineGallery.Api.Controllers
         public async Task<IActionResult> SearchUsers([Required] string query, [Required] int page,
             [Required] int itemCount)
         {
-            var request = new PaginationRequest { ItemCount = itemCount, Page = page };
+            var request = new PaginationRequest {ItemCount = itemCount, Page = page};
             var response = await _usersService.SearchUsersByName(query, request);
             return Ok(response);
         }

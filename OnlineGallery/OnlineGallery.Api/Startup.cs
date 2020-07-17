@@ -29,7 +29,6 @@ namespace OnlineGallery.Api
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .WithExposedHeaders("Content-Disposition"));
-                    
             });
 
             services.AddControllers();

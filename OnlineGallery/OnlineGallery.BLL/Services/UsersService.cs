@@ -63,7 +63,7 @@ namespace OnlineGallery.BLL.Services
                 throw new ObjectNotFoundException($"user with id {id} not found");
             var images = await _unitOfWork.ImageRepository.GetImagesByUser(id);
 
-            var path = Path.Combine(_fileOptions.DirectoryPath, id); 
+            var path = Path.Combine(_fileOptions.DirectoryPath, id);
             _imageProvider.DeleteDirectory(path);
 
             await _userManager.DeleteAsync(user);
@@ -73,7 +73,7 @@ namespace OnlineGallery.BLL.Services
         {
             var user = await _userManager.FindByIdAsync(id);
             var result = await _userManager.AddToRoleAsync(user, "Moderator");
-            if (!result.Succeeded) throw new IdentityException(result.Errors);  
+            if (!result.Succeeded) throw new IdentityException(result.Errors);
         }
 
         public async Task ModeratorToUser(string id)
@@ -83,7 +83,8 @@ namespace OnlineGallery.BLL.Services
             if (!result.Succeeded) throw new IdentityException(result.Errors);
         }
 
-        public async Task<PaginationResponse<UserWithRolesDto>> SearchUsersByName(string query, PaginationRequest request)
+        public async Task<PaginationResponse<UserWithRolesDto>> SearchUsersByName(string query,
+            PaginationRequest request)
         {
             var options = _mapper.Map<PaginationOptions>(request);
             var pagedData = await _userManager.SearchByUsername(query, options);

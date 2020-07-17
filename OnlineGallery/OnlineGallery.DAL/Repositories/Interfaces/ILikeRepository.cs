@@ -9,4 +9,4 @@ namespace OnlineGallery.DAL.Repositories.Interfaces
         void RemoveLike(Like like);
         Task<bool> Exist(Like like);
     }
-}   
+}

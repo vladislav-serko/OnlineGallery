@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using OnlineGallery.Api.Filters;
 using OnlineGallery.BLL.Helpers.Options;
 using OnlineGallery.BLL.Services;
 using OnlineGallery.BLL.Services.Interfaces;
@@ -52,9 +51,5 @@ namespace OnlineGallery.Api.Extensions
             });
         }
 
-        public static void AddFilters(this IServiceCollection services)
-        {
-            services.AddScoped<ModelStateValidationFilterAttribute>();
-        }
     }
 }

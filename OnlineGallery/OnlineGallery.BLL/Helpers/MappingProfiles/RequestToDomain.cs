@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using OnlineGallery.BLL.DTOs;
 using OnlineGallery.BLL.DTOs.ImageTransfer;
 using OnlineGallery.BLL.DTOs.Pagination;
 using OnlineGallery.BLL.DTOs.Users;

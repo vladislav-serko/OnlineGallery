@@ -30,7 +30,7 @@ namespace OnlineGallery.DAL
                 .HasOne(l => l.Image)
                 .WithMany(p => p.Likes)
                 .HasForeignKey(l => l.ImageId);
-                
+
 
             builder.Entity<Like>()
                 .HasOne(l => l.User)
@@ -39,10 +39,5 @@ namespace OnlineGallery.DAL
                 .OnDelete(DeleteBehavior.NoAction);
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(
-        //        "Data Source=DESKTOP-LU0TI71\\SQLEXPRESS;Initial Catalog = OnlineGallery;Integrated Security=True;");
-        //}
     }
 }

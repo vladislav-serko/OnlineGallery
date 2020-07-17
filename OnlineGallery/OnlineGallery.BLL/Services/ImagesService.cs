@@ -67,28 +67,6 @@ namespace OnlineGallery.BLL.Services
             return _mapper.Map<ImageDto>(image);
         }
 
-        private string GetExtension(string name)
-        {
-            var extension = Path.GetExtension(name);
-
-            if (extension == null)
-                throw new InvalidOperationException("Cant validate file extension");
-
-            if (!_fileOptions.SupportedExtensions.Contains(extension))
-                throw new InvalidOperationException("File extension is unsupported");
-
-            return extension;
-        }
-
-        private async Task ValidateImage(ImagePostRequest request)
-        {
-            if (await _userManager.FindByIdAsync(request.UserId) == null)
-                throw new ObjectNotFoundException($"Entity with id {request.UserId} not found");
-
-            if (request.File.Length > _fileOptions.MaxSize)
-                throw new InvalidOperationException($"The file is too large. Max size is {_fileOptions.MaxSize} bytes");
-        }
-
         public async Task<ImageDto> GetImage(string id)
         {
             var image = await _unitOfWork.ImageRepository.Get(id);
@@ -143,16 +121,35 @@ namespace OnlineGallery.BLL.Services
             await _unitOfWork.Commit();
         }
 
+        private string GetExtension(string name)
+        {
+            var extension = Path.GetExtension(name);
+
+            if (extension == null)
+                throw new InvalidOperationException("Cant validate file extension");
+
+            if (!_fileOptions.SupportedExtensions.Contains(extension))
+                throw new InvalidOperationException("File extension is unsupported");
+
+            return extension;
+        }
+
+        private async Task ValidateImage(ImagePostRequest request)
+        {
+            if (await _userManager.FindByIdAsync(request.UserId) == null)
+                throw new ObjectNotFoundException($"Entity with id {request.UserId} not found");
+
+            if (request.File.Length > _fileOptions.MaxSize)
+                throw new InvalidOperationException($"The file is too large. Max size is {_fileOptions.MaxSize} bytes");
+        }
+
         private async Task<PaginationResponse<ImageDto>> AddLikesCounts(PagedData<Image> pagedData)
         {
             var result = _mapper.Map<PaginationResponse<ImageDto>>(pagedData);
             foreach (var imageDto in result.Data)
-            {
                 imageDto.LikeCount = await _unitOfWork.ImageRepository.GetLikeCount(imageDto.Id);
-            }
 
             return result;
         }
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using OnlineGallery.BLL.DTOs;
 
 namespace OnlineGallery.BLL.Services.Interfaces
 {

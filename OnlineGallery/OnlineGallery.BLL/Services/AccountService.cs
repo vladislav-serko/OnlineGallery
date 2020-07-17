@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;  
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,7 +58,7 @@ namespace OnlineGallery.BLL.Services
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            return new AuthenticationResponse{Token = CreateToken(user, roles)};
+            return new AuthenticationResponse {Token = CreateToken(user, roles)};
         }
 
         private string CreateToken(User user, IEnumerable<string> roles)
@@ -69,20 +69,17 @@ namespace OnlineGallery.BLL.Services
             var claims = new ClaimsIdentity(new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                new Claim(JwtRegisteredClaimNames.Jti, 
+                new Claim(JwtRegisteredClaimNames.Jti,
                     Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, user.UserName)
             });
 
-            foreach (var role in roles)
-            {
-                claims.AddClaim(new Claim(ClaimTypes.Role, role));
-            }
+            foreach (var role in roles) claims.AddClaim(new Claim(ClaimTypes.Role, role));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
-                    
+
                 SigningCredentials = new SigningCredentials(key,
                     SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _jwtOptions.Issuer,
@@ -90,8 +87,8 @@ namespace OnlineGallery.BLL.Services
                 Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.LifetimeMinutes)
             };
 
-           var token =  tokenHandler.CreateToken(tokenDescriptor);
-           return tokenHandler.WriteToken(token);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }

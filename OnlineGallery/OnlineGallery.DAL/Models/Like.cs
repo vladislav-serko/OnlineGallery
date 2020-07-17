@@ -9,6 +9,5 @@
         public User User { get; set; }
 
         public Image Image { get; set; }
-
     }
 }
