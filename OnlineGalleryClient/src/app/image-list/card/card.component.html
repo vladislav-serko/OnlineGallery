@@ -24,11 +24,9 @@
 </mat-card>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-        <a style="text-decoration: none; color: inherit;" [href]="image.urlToFull" target ="_blank">
-            <mat-icon>open_in_new</mat-icon>
-            Open full
-        </a>
+    <button mat-menu-item (click)="onDownload()">
+            <mat-icon>download</mat-icon>
+            Download full image file
     </button>
     <button mat-menu-item *ngIf="showAdditionalOptions" (click)="launchUpdateDialog()">
         <mat-icon>edit</mat-icon>

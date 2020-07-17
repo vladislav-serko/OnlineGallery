@@ -27,7 +27,9 @@ namespace OnlineGallery.Api
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader());
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("Content-Disposition"));
+                    
             });
 
             services.AddControllers();

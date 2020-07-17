@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineGallery.BLL.Services.Interfaces;
 
@@ -19,24 +22,25 @@ namespace OnlineGallery.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetImage(string id)
         {
-            var file = await _filesService.GetImageFile(id);
+            var (stream, name) = await _filesService.GetImageFile(id);
 
-            if (file == null)
-                return NotFound("File not found");
-
-            return Ok(file);
+            return File(stream, GetContentType(name), name);
         }
-
+        
         [Route("{id}/full", Name = "GetFullImageFile")]
         [HttpGet]
         public async Task<IActionResult> GetFullImage(string id)
         {
-            var file = await _filesService.GetFullImageFile(id);
+            var (stream, name) = await _filesService.GetFullImageFile(id);
 
-            if (file == null)
-                return NotFound("File not found");
-
-            return Ok(file);
+            return File(stream, GetContentType(name), name);
         }
+
+        private string GetContentType(string name)
+        {
+            var ext = Path.GetExtension(name).Replace(".", "");
+            return $"image/{ext}";
+        }
+
     }
 }

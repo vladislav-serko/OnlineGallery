@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
+import {Http, ResponseContentType} from '@angular/http';
 import { Router } from '@angular/router';
 import { ImageInterface } from '../models/image-interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -70,4 +71,9 @@ export class ImagesService {
       }
     });
   }
+
+  downloadFullImage(id: string){
+    return this.http.get(`${baseUrl}imageFiles/${id}/full`, {observe: "response", responseType: "blob"});
+  }
+
 } 

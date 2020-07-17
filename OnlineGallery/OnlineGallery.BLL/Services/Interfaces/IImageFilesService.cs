@@ -5,7 +5,7 @@ namespace OnlineGallery.BLL.Services.Interfaces
 {
     public interface IImageFilesService
     {
-        Task<Stream> GetImageFile(string id);
-        Task<Stream> GetFullImageFile(string id);
+        Task<(Stream, string)> GetImageFile(string id);
+        Task<(Stream, string)> GetFullImageFile(string id);
     }
 }

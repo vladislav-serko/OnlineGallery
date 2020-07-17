@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdateImageDialogComponent } from 'src/app/image-list/card/update-image-dialog/update-image-dialog.component';
 import { ImagesService } from 'src/app/shared/services/images.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-card',
@@ -38,7 +39,7 @@ export class CardComponent implements OnInit {
         data => {
           this.image.likeCount--;
         },
-        err=>{
+        err => {
           console.log(err);
         }
       );
@@ -47,7 +48,7 @@ export class CardComponent implements OnInit {
         data => {
           this.image.likeCount++;
         },
-        err=>{
+        err => {
           console.log(err);
         }
       );
@@ -57,7 +58,7 @@ export class CardComponent implements OnInit {
   }
 
   onDelete() {
-    this.imagesService.deleteImage(this.image.id).subscribe( 
+    this.imagesService.deleteImage(this.image.id).subscribe(
       data => {
         this.snackBar.open("Deleted successfully", "OK", { duration: 2000 });
         this.delete.emit(this.image.id);
@@ -65,7 +66,7 @@ export class CardComponent implements OnInit {
         this.snackBar.open("Something goes wrong", "OK", { duration: 2000 });
       }
     );
-    
+
   }
 
   launchUpdateDialog() {
@@ -89,5 +90,34 @@ export class CardComponent implements OnInit {
         }
       )
   }
-  
+
+  onDownload() {
+    this.imagesService.downloadFullImage(this.image.id).subscribe(
+      (data) => {
+        this.downloadFile(data);
+      },
+      err => {
+        console.log(err);
+        this.snackBar.open("Unable to download image", "OK", { duration: 2000 });
+      }
+    )
+  }
+
+  downloadFile(data) {
+    const disposition = data.headers.get('Content-Disposition');
+    const name = this.getFilename(disposition);
+    const ext = data.headers.get('Content-Type');
+    const blob = new Blob([data.body], {type: ext});
+    fileSaver.saveAs(blob, name);
+  }
+
+  getFilename(disposition): string {
+    if (disposition && disposition.indexOf('attachment') !== -1) {
+      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+      var matches = filenameRegex.exec(disposition);
+      if (matches != null && matches[1]) { 
+        return matches[1].replace(/['"]/g, '');
+      }
+  }
+  }
 }
