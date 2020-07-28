@@ -44,7 +44,7 @@ namespace OnlineGallery.Api.Extensions
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = jwtOptions.Issuer,
+                    ValidIssuer = jwtOptions.Issuer,    
                     ValidAudience = jwtOptions.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };

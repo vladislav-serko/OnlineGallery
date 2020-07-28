@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineGallery.BLL", "Online
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineGallery.DAL", "OnlineGallery.DAL\OnlineGallery.DAL.csproj", "{F86CBB97-1E62-40F7-B687-97DECCB376F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineGallery.BLLTests", "OnlineGallery.BLLTests\OnlineGallery.BLLTests.csproj", "{55C1C73F-317D-437C-9210-9EB0921AF655}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F86CBB97-1E62-40F7-B687-97DECCB376F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F86CBB97-1E62-40F7-B687-97DECCB376F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F86CBB97-1E62-40F7-B687-97DECCB376F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C1C73F-317D-437C-9210-9EB0921AF655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C1C73F-317D-437C-9210-9EB0921AF655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C1C73F-317D-437C-9210-9EB0921AF655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C1C73F-317D-437C-9210-9EB0921AF655}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

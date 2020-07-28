@@ -21,8 +21,6 @@ namespace OnlineGallery.BLL.Services
             if (await _unitOfWork.LikeRepository.Exist(like))
                 throw new InvalidOperationException("Like already exist");
 
-            var user = new {Name = "api works"};
-
             _unitOfWork.LikeRepository.AddLike(like);
             await _unitOfWork.Commit();
         }
