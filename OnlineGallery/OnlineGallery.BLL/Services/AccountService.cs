@@ -41,8 +41,7 @@ namespace OnlineGallery.BLL.Services
             if (!result.Succeeded)
                 throw new IdentityException(result.Errors);
 
-            await _userManager.AddToRoleAsync(user,
-                "User");
+            await _userManager.AddToRoleAsync(user, "User");
             var userFromDb = await _userManager.FindByNameAsync(request.UserName);
 
             return _mapper.Map<UserDto>(userFromDb);

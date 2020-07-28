@@ -50,7 +50,7 @@ namespace OnlineGallery.BLLTests
 
             new ImagePostRequest
             {
-                File = new FormFile(new MemoryStream(), 1, 10485761, null, "a"),
+                File = new FormFile(new MemoryStream(), 1, 10485760, null, "a."),
                 UserId = Guid.NewGuid().ToString(),
                 ShortDescription = "",
                 Description = ""
@@ -58,12 +58,12 @@ namespace OnlineGallery.BLLTests
 
             new ImagePostRequest
             {
-                File = new FormFile(new MemoryStream(), 1, 10485761, null, "a.exe"),
+                File = new FormFile(new MemoryStream(), 1, 10485760, null, "a.exe"),
                 UserId = Guid.NewGuid().ToString(),
                 ShortDescription = "",
                 Description = ""
             }
-        }; 
+        };
 
 
         public ImagesServiceTests()
@@ -154,6 +154,223 @@ namespace OnlineGallery.BLLTests
             Task Actual() => _imagesService.AddImage(request);
             //Assert
             await Assert.ThrowsAsync<InvalidOperationException>(Actual);
+        }
+
+        [Fact]
+        public async Task GetImage_ImageExists_ReturnsValidDto()
+        {
+            //Arrange
+            var image = new Image()
+            {
+                Id = "0"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(image);
+            //Act
+            var actual = await _imagesService.GetImage("0");
+            //Assert
+            Assert.True(actual.Id == image.Id);
+        }
+
+        [Fact]
+        public async Task GetImage_ImageNotExists_ThrowsObjectNotFoundException()
+        {
+            //Arrange
+            var image = new Image()
+            {
+                Id = "0"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(() => null);
+            //Act
+            Task<ImageDto> Actual() => _imagesService.GetImage("0");
+            //Assert
+            await Assert.ThrowsAsync<ObjectNotFoundException>(Actual);
+        }
+
+        [Fact]
+        public async Task Update_ValidRequest_UpdatesSuccessfully()
+        {
+            //Arrange
+            var updateRequest = new ImageUpdateRequest
+            {
+                Id = "0",
+                UserId = "0",
+                Description = "newCaption",
+                ShortDescription = "newName"
+            };
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "0",
+                Description = "",
+                ShortDescription = ""
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(updateRequest.Id))
+                .ReturnsAsync(image);
+            //Act
+            await _imagesService.Update(updateRequest);
+            //Assert
+            Assert.True(image.Description == updateRequest.Description
+                && image.ShortDescription == updateRequest.ShortDescription);
+        }
+
+        [Fact]
+        public async Task Update_ImageNotExists_ThrowsObjectNotFoundException()
+        {
+            //Arrange
+            var updateRequest = new ImageUpdateRequest
+            {
+                Id = "0",
+                UserId = "0",
+                Description = "newCaption",
+                ShortDescription = "newName"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(updateRequest.Id))
+                .ReturnsAsync(() => null);
+            //Act
+            Task Actual() => _imagesService.Update(updateRequest);
+            //Assert
+            await Assert.ThrowsAsync<ObjectNotFoundException>(Actual);
+        }
+
+        [Fact]
+        public async Task Update_InvalidUserId_ThrowsImageAccessException()
+        {
+            //Arrange
+            var updateRequest = new ImageUpdateRequest
+            {
+                Id = "0",
+                UserId = "0",
+                Description = "newCaption",
+                ShortDescription = "newName"
+            };
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "1",
+                Description = "",
+                ShortDescription = ""
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(updateRequest.Id))
+                .ReturnsAsync(image);
+            //Act
+            Task Actual() => _imagesService.Update(updateRequest);
+            //Assert
+            await Assert.ThrowsAsync<ImageAccessException>(Actual);
+        }
+
+        [Fact]
+        public async Task DeleteImage_ValidParameters_DeletesImageFromDisk()
+        {
+            //Arrange
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "1"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(image);
+            //Act
+            await _imagesService.DeleteImage(image.Id, image.UserId, false);
+            //Assert
+            _imageProviderMock.Verify(x => x.DeleteImage(It.IsAny<string>(), image));
+        }
+
+        [Fact]
+        public async Task DeleteImage_ValidParameters_DeletesImageFromDatabase()
+        {
+            //Arrange
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "1"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(image);
+            //Act
+            await _imagesService.DeleteImage(image.Id, image.UserId, false);
+            //Assert
+            _uowMock.Verify(x => x.ImageRepository.Delete(image));
+        }
+
+        [Fact]
+        public async Task DeleteImage_UserIdMismatchDeletedByModerator_DeletesImageFromDisk()
+        {
+            //Arrange
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "1"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(image);
+            //Act
+            await _imagesService.DeleteImage(image.Id, "0", true);
+            //Assert
+            _imageProviderMock.Verify(x => x.DeleteImage(It.IsAny<string>(), image));
+        }
+
+        [Fact]
+        public async Task DeleteImage_UserIdMismatchDeletedByModerator_DeletesImageFromDatabase()
+        {
+            //Arrange
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "1"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(image);
+            //Act
+            await _imagesService.DeleteImage(image.Id, "0", true);
+            //Assert
+            _uowMock.Verify(x => x.ImageRepository.Delete(image));
+        }
+
+        [Fact]
+        public async Task DeleteImage_UserIdMismatchDeletedByRegularUser_ThrowsImageAccessException()
+        {
+            //Arrange
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "1"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(image);
+            //Act
+            Task Actual() => _imagesService.DeleteImage(image.Id, "0", false);
+            //Assert
+            await Assert.ThrowsAsync<ImageAccessException>(Actual);
+        }
+
+        [Fact]
+        public async Task DeleteImage_ImageNotFound_ThrowsObjectNotFoundException()
+        {
+            //Arrange
+            var image = new Image
+            {
+                Id = "0",
+                UserId = "1"
+            };
+
+            _uowMock.Setup(x => x.ImageRepository.Get(image.Id))
+                .ReturnsAsync(()=>null);
+            //Act
+            Task Actual() => _imagesService.DeleteImage(image.Id, "0", false);
+            //Assert
+            await Assert.ThrowsAsync<ObjectNotFoundException>(Actual);
         }
 
 

@@ -8,6 +8,7 @@ import { AdminComponent } from './admin/admin.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserLoggedGuard } from './guards/user-logged.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user', pathMatch:'full' },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [UserLoggedGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] }
 ];
 

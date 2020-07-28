@@ -34,4 +34,8 @@ export class TopbarComponent implements OnInit {
   goToResults(){
     this.router.navigate(["search"], {queryParams:{q:this.query, page: 1}});
   }
+
+  navigateToCurrentProfile(){
+    this.router.navigateByUrl("user", {queryParams:{id:this.authService.getCurrentUser().id, page:1}});  
+  }
 }

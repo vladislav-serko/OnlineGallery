@@ -93,7 +93,7 @@ namespace OnlineGallery.BLL.Services
             return await AddLikesCounts(pagedData);
         }
 
-        public async Task<ImageDto> Update(ImageUpdateRequest request)
+        public async Task Update(ImageUpdateRequest request)
         {
             var image = await _unitOfWork.ImageRepository.Get(request.Id);
             if (image == null)
@@ -101,9 +101,8 @@ namespace OnlineGallery.BLL.Services
             if (image.UserId != request.UserId)
                 throw new ImageAccessException("This image cannot be accessed by this user.");
 
-            var mapped = _mapper.Map(request, image);
+            _mapper.Map(request, image);
             await _unitOfWork.Commit();
-            return _mapper.Map<ImageDto>(mapped);
         }
 
         public async Task DeleteImage(string imageId, string userId, bool deletedByModerator)
@@ -125,7 +124,7 @@ namespace OnlineGallery.BLL.Services
         {
             var extension = Path.GetExtension(name);
 
-            if (extension == null)
+            if (extension == "")
                 throw new InvalidOperationException("Cant validate file extension");
 
             if (!_fileOptions.SupportedExtensions.Contains(extension))

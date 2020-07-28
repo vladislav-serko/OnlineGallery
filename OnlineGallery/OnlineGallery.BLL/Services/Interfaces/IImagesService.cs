@@ -10,7 +10,7 @@ namespace OnlineGallery.BLL.Services.Interfaces
         Task<ImageDto> GetImage(string id);
         Task<PaginationResponse<ImageDto>> GetImages(string userId, PaginationRequest request);
         Task<PaginationResponse<ImageDto>> SearchImages(string query, PaginationRequest request);
-        Task<ImageDto> Update(ImageUpdateRequest request);
+        Task Update(ImageUpdateRequest request);
         Task DeleteImage(string imageId, string userId, bool deletedByModerator);
     }
 }
