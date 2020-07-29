@@ -6,8 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineGallery.Api.Extensions;
-using OnlineGallery.BLL.Helpers.Extensions;
-using OnlineGallery.BLL.Helpers.MappingProfiles;
+using OnlineGallery.BLL.Extensions;
+using OnlineGallery.BLL.MappingProfiles;
+
 
 namespace OnlineGallery.Api
 {
@@ -40,8 +41,6 @@ namespace OnlineGallery.Api
             services.AddDalDependencies();
 
             services.AddAppOptions(Configuration);
-
-            //services.AddFilters();
 
             services.AddAppAuthentication(Configuration);
 

@@ -6,7 +6,7 @@ using OnlineGallery.DAL.FileWork;
 using OnlineGallery.DAL.Models;
 using OnlineGallery.DAL.UnitOfWork;
 
-namespace OnlineGallery.BLL.Helpers.Extensions
+namespace OnlineGallery.BLL.Extensions
 {
     public static class ServiceCollectionExtensions
     {

@@ -6,7 +6,7 @@ using OnlineGallery.BLL.DTOs.Users.Authentication;
 using OnlineGallery.DAL.Models;
 using OnlineGallery.DAL.Models.Pagination;
 
-namespace OnlineGallery.BLL.Helpers.MappingProfiles
+namespace OnlineGallery.BLL.MappingProfiles
 {
     public class RequestToDomain : Profile
     {

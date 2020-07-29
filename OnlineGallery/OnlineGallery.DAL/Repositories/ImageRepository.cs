@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OnlineGallery.DAL.Models;
@@ -32,35 +31,33 @@ namespace OnlineGallery.DAL.Repositories
             _context.Images.Remove(item);
         }
 
-        public async Task<int> GetLikeCount(string imageId)
+        public Task<int> GetLikeCount(string imageId)
         {
-            return await _context.Likes.Where(like => like.ImageId == imageId).CountAsync();
+            return _context.Likes
+                .Where(like => like.ImageId == imageId)
+                .CountAsync();
         }
 
-        public async Task<IEnumerable<Image>> GetImagesByUser(string userId)
-        {
-            return await _context.Images
-                .Where(i => i.User.Id == userId)
-                .ToListAsync();
-        }
-
-        public async Task<PagedData<Image>> GetImagesByUser(string userId, PaginationOptions options)
+        public Task<PagedData<Image>> GetImagesByUser(string userId, PaginationOptions options)
         {
             var queryable = _context.Images
+                .AsQueryable()
                 .Where(i => i.User.Id == userId)
                 .OrderByDescending(i => i.Published);
+
             var result = new PagedData<Image>();
-            return await result.Create(queryable, options);
+            return result.Create(queryable, options);
         }
 
-        public async Task<PagedData<Image>> Search(string query, PaginationOptions options)
+        public Task<PagedData<Image>> Search(string query, PaginationOptions options)
         {
             var queryable = _context.Images
+                .AsQueryable()
                 .Where(i => i.ShortDescription.Contains(query) || i.Description.Contains(query))
                 .OrderByDescending(i => i.Published);
 
             var result = new PagedData<Image>();
-            return await result.Create(queryable, options);
+            return result.Create(queryable, options);
         }
     }
 }

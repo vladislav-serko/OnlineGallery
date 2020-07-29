@@ -8,7 +8,6 @@ namespace OnlineGallery.DAL.Repositories.Interfaces
     public interface IImageRepository
     {
         Task<Image> Get(string id);
-        Task<IEnumerable<Image>> GetImagesByUser(string userId);
         Task<PagedData<Image>> GetImagesByUser(string userId, PaginationOptions options);
         Task<PagedData<Image>> Search(string query, PaginationOptions options);
         Image Add(Image item);

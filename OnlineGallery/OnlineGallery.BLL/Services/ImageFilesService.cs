@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using OnlineGallery.BLL.Exceptions;
-using OnlineGallery.BLL.Helpers.Options;
+using OnlineGallery.BLL.Options;
 using OnlineGallery.BLL.Services.Interfaces;
 using OnlineGallery.DAL.FileWork;
 using OnlineGallery.DAL.UnitOfWork;

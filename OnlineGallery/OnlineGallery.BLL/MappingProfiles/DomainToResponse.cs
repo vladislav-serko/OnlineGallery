@@ -6,15 +6,18 @@ using OnlineGallery.BLL.DTOs.Users.Authentication;
 using OnlineGallery.DAL.Models;
 using OnlineGallery.DAL.Models.Pagination;
 
-namespace OnlineGallery.BLL.Helpers.MappingProfiles
+namespace OnlineGallery.BLL.MappingProfiles
 {
-    internal class DomainToResponse : Profile
+    public class DomainToResponse : Profile
     {
         public DomainToResponse()
         {
             CreateMap<Image, ImageDto>();
+
             CreateMap<PagedData<Image>, PaginationResponse<ImageDto>>();
+
             CreateMap<PagedData<User>, PaginationResponse<UserWithRolesDto>>();
+
             CreateMap<User, AuthenticationResponse>();
             CreateMap<User, UserDto>();
             CreateMap<User, UserWithRolesDto>();

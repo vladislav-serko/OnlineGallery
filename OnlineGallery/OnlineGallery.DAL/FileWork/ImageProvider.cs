@@ -35,9 +35,8 @@ namespace OnlineGallery.DAL.FileWork
         public void DeleteDirectory(string path)
         {
             var di = new DirectoryInfo(path);
-
+            if (!di.Exists) return;
             foreach (var file in di.EnumerateFiles()) file.Delete();
-
             di.Delete();
         }
 

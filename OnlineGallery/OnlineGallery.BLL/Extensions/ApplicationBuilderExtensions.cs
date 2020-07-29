@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnlineGallery.DAL.Models;
 
-namespace OnlineGallery.BLL.Helpers.Extensions
+namespace OnlineGallery.BLL.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

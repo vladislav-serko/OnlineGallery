@@ -24,9 +24,9 @@ namespace OnlineGallery.DAL.Repositories
             _context.Likes.Remove(like);
         }
 
-        public async Task<bool> Exist(Like like)
+        public Task<bool> Exist(Like like)
         {
-            return await _context.Likes
+            return _context.Likes
                 .AnyAsync(l => l.UserId == like.UserId && l.ImageId == like.ImageId);
         }
     }

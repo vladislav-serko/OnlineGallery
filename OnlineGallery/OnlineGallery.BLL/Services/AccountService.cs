@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using OnlineGallery.BLL.DTOs.Users;
 using OnlineGallery.BLL.DTOs.Users.Authentication;
 using OnlineGallery.BLL.Exceptions;
-using OnlineGallery.BLL.Helpers.Options;
+using OnlineGallery.BLL.Options;
 using OnlineGallery.BLL.Services.Interfaces;
 using OnlineGallery.DAL.Models;
 

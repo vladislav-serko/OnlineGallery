@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
-        Validators.pattern(new RegExp("^([a-zA-Z\d._@+-])*$"))
+        Validators.pattern(new RegExp("^([a-zA-Z1-9\d._@+-])*$"))
       ]),
       firstName: new FormControl("", [
         Validators.maxLength(30)

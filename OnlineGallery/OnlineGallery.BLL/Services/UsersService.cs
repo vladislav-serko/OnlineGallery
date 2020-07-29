@@ -7,13 +7,12 @@ using Microsoft.Extensions.Options;
 using OnlineGallery.BLL.DTOs.Pagination;
 using OnlineGallery.BLL.DTOs.Users;
 using OnlineGallery.BLL.Exceptions;
-using OnlineGallery.BLL.Helpers.Options;
+using OnlineGallery.BLL.Options;
 using OnlineGallery.BLL.Services.Interfaces;
 using OnlineGallery.DAL.Extensions;
 using OnlineGallery.DAL.FileWork;
 using OnlineGallery.DAL.Models;
 using OnlineGallery.DAL.Models.Pagination;
-using OnlineGallery.DAL.UnitOfWork;
 
 namespace OnlineGallery.BLL.Services
 {
@@ -22,17 +21,14 @@ namespace OnlineGallery.BLL.Services
         private readonly ImageFileOptions _fileOptions;
         private readonly IImageProvider _imageProvider;
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
 
         public UsersService(
-            IUnitOfWork unitOfWork,
             IMapper mapper,
             IImageProvider imageProvider,
             IOptions<ImageFileOptions> fileOptions,
             UserManager<User> userManager)
         {
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _imageProvider = imageProvider;
             _userManager = userManager;
@@ -61,7 +57,6 @@ namespace OnlineGallery.BLL.Services
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 throw new ObjectNotFoundException($"user with id {id} not found");
-            var images = await _unitOfWork.ImageRepository.GetImagesByUser(id);
 
             var path = Path.Combine(_fileOptions.DirectoryPath, id);
             _imageProvider.DeleteDirectory(path);

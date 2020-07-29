@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OnlineGallery.BLL.Helpers.Options
+namespace OnlineGallery.BLL.Options
 {
     public class ImageFileOptions
     {
